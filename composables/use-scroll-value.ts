@@ -1,13 +1,13 @@
 export const useScrollValue = () => {
   const viewerScrollValueInternal = useState('viewerScrollValue', () => 0)
-  const editorSCrollValueInternal = useState('editorSCrollValue', () => 0)
+  const editorScrollValueInternal = useState('editorScrollValue', () => 0)
 
   const updateViewerScrollValue = (value: number) => {
     viewerScrollValueInternal.value = value
   }
 
   const updateEditorScrollValue = (value: number) => {
-    editorSCrollValueInternal.value = value
+    editorScrollValueInternal.value = value
   }
 
   const viewerScrollValue = computed(() =>
@@ -15,7 +15,7 @@ export const useScrollValue = () => {
   )
 
   const editorSCrollValue = computed(() =>
-    editorSCrollValueInternal.value > 1 ? 1 : editorSCrollValueInternal.value
+    editorScrollValueInternal.value > 1 ? 1 : editorScrollValueInternal.value
   )
 
   return {
