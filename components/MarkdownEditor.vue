@@ -125,6 +125,7 @@ const initMonaco = async () => {
     value: props.modelValue,
     language: props.language,
     theme: props.theme,
+    wordWrap: 'on',
     ...props.options,
   })
 
