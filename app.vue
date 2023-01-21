@@ -88,6 +88,7 @@ const saveFile =async () => {
          >
           <MarkdownPreviewer
           :render-text="editData"
+          :height="contentHeight"
           class="preview-area"
           />
         </v-col>
@@ -99,6 +100,7 @@ const saveFile =async () => {
 <style scoped>
 .v-main {
   background-color: #212121;
+  margin: 0;
 }
 
 .document-title {

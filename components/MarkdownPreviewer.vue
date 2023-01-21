@@ -11,6 +11,8 @@ const props = withDefaults(defineProps<Props>(), {
   height: '100%'
 })
 
+const fixedHeight = computed(() => props.height.toString().includes('%') ? props.height : `${props.height}px`)
+
 const { $md } = useNuxtApp()
 const renderedText = computed(() => $md.render(props.renderText))
 
@@ -25,40 +27,18 @@ const modifyAncher = () => {
   addNavigateListener(viewer)
 }
 
-const debounced = debounce(modifyAncher)
+const debouncedModifyAncher = debounce(modifyAncher)
 
 watch(
   () => renderedText.value,
   (newVal) => {
     nextTick(() => {
-      debounced()
+      debouncedModifyAncher()
     })
   }
 )
 
-//const contentHeight = computed(() => `${window.innerHeight}px`)
-/*
-const contentHeight = ref('0px')
-
-const resizeHeight = () => {
-  contentHeight.value = `${window.innerHeight}px`
-}
-
-onMounted(() => {
-  window.addEventListener('resize', resizeHeight)
-})
-
-onBeforeUnmount(() => {
-  window.removeEventListener('resize', resizeHeight)
-})
-
-watch(
-  () => contentHeight.value,
-  (newVal) => {
-    console.log(`now height=${newVal}`)
-  }
-)
-*/
+useViewerHandleScroll(viewer)
 </script>
 
 <template>
@@ -73,8 +53,9 @@ watch(
 <style>
 .markdown-body {
   width: 100%;
-  height: 100%;
   padding: 10px;
-/*  height: v-bind(contentHeight);*/
+/*  padding: 10px 10px 200px 10px;*/
+  margin-bottom: 200px;
+  height: v-bind(fixedHeight);
 }
 </style>

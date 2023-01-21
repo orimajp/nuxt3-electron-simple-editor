@@ -2,6 +2,15 @@
 import type { ElectronOptions } from 'nuxt-electron'
 
 export default defineNuxtConfig({
+  app: {
+    head: {
+      style: [
+        {
+          children: "html, body { margin-bottom: -20px; }"
+        }
+      ],
+    }
+  },
   ssr: false,
   css: [
     'vuetify/lib/styles/main.sass',

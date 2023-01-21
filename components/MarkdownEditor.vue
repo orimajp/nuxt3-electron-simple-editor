@@ -105,6 +105,12 @@ watch(
   }
 )
 
+const numberedHeight = computed(() => window.innerHeight)
+
+const {
+  setEditor,
+} = useEditorHandlerScroll(numberedHeight)
+
 const initMonaco = async () => {
   const loader = await import('@monaco-editor/loader').then(m => m?.default)
   monaco_ = await loader.init()
@@ -122,6 +128,7 @@ const initMonaco = async () => {
 
   const editor_ = _getEditor() as monaco.editor.IStandaloneCodeEditor | null
   if (editor_) {
+    setEditor(editor_)
     editor_.onDidChangeModelContent((event) => {
       const value = editor_.getValue()
       if( props.modelValue != value) {
