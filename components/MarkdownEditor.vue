@@ -8,6 +8,8 @@ import type monaco from 'monaco-editor'
 //@ts-ignore
 import { debounce } from 'lodash'
 
+const APPBAR_HEIGHT = 48
+
 interface Props {
   diffEditor?: boolean
   width?: number | string
@@ -36,10 +38,13 @@ const { width, height } = toRefs(props)
 const fixedWidth = computed(() => width.value.toString().includes('%') ? width.value : `${width.value}px`)
 const fixedHeight = computed(() => height.value.toString().includes('%') ? height.value : `${height.value}px`)
 
+const numberedHeight = ref(0)
+
 const resizeEditor = () => {
   if (editor) {
       const rect = (editorElement.value as Element).getBoundingClientRect()
       editor.layout({ width: rect.width, height: rect.height })
+      numberedHeight.value = window.innerHeight - APPBAR_HEIGHT
   }
 }
 
@@ -50,6 +55,7 @@ let editor: monaco.editor.IStandaloneCodeEditor | monaco.editor.IStandaloneDiffE
 
 onMounted(() => {
   initMonaco()
+  numberedHeight.value = window.innerHeight - APPBAR_HEIGHT
   window.addEventListener('resize', debounced)
 })
 
@@ -104,8 +110,6 @@ watch(
     monaco_.editor.setTheme(newVal)
   }
 )
-
-const numberedHeight = computed(() => window.innerHeight)
 
 const {
   setEditor,

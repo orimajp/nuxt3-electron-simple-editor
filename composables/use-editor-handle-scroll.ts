@@ -1,12 +1,12 @@
 import * as monacoEditor from 'monaco-editor'
-import { ComputedRef } from 'nuxt/dist/app/compat/capi'
+import { Ref } from 'nuxt/dist/app/compat/capi'
 import IStandaloneCodeEditor = monacoEditor.editor.IStandaloneCodeEditor
 import { debounce } from 'lodash'
 import { useScrollValue } from './use-scroll-value'
 
 
 export const useEditorHandlerScroll = (
-  windowHeight: ComputedRef<number>
+  windowHeight: Ref<number>
 ) => {
   let editor: IStandaloneCodeEditor | null = null
 
